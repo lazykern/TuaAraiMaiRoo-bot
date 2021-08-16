@@ -1,4 +1,4 @@
-<img width="150" height="150" align="left" style="float: left; margin: 0 10px 0 0;" alt="Atlanta" src="https://cdn.discordapp.com/avatars/570544162555035658/54af40f5b4815fa1961836f280b72452.png">  
+<img width="200" height="200" align="left" style="float: left; margin: 0 10px 0 0;" alt="Atlanta" src="https://cdn.discordapp.com/avatars/570544162555035658/54af40f5b4815fa1961836f280b72452.png">  
 
 # ตัวอะไรไม่รู้
 
