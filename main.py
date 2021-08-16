@@ -129,13 +129,13 @@ async def send_botinvitelink(ctx: discord_slash.SlashContext):
     await ctx.send('https://tinyurl.com/blackhole112')
 
 
-@slash.slash(name="poker", description="Play poker.", guild_ids=GUILD_IDS)
+@slash.slash(name="poker", description="Plays Poker.", guild_ids=GUILD_IDS)
 async def poker(ctx: discord_slash.SlashContext):
     print(f'{str(ctx.author)} used {ctx.name}')
     await poker_play(bot, ctx)
 
 
-@slash.slash(name="pog", description="Play pog.", guild_ids=GUILD_IDS)
+@slash.slash(name="pokdeng", description="Plays Pok Deng.", guild_ids=GUILD_IDS)
 async def pog(ctx: discord_slash.SlashContext):
     print(f'{str(ctx.author)} used {ctx.name}')
     await pog_play(bot, ctx)
