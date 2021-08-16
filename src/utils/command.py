@@ -28,7 +28,7 @@ class SlashChoice:
         {"value": "blessing", "name": "Blessing"},
         {"value": "letitbe",    "name": "Let it be"}
     ]
-    
+
     choicePuiVoice = [
         {"value": "pui1",      "name": "pui1 เขาเอือมกันนะ"},
         {"value": "pui2",      "name": "pui2 เป็นกบฎ"},
@@ -146,7 +146,6 @@ class SlashChoice:
         {"value": "vi",      "name": "Vietnamese"},
         {"value": "zh-CN",   "name": "Chinese"}
     ]
-
 
     programmingLanguageChoice = [
         {"value": "html",       "name": "HTML, XML"},
