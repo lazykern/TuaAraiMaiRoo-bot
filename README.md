@@ -36,8 +36,8 @@ Every command is called by / (slash).
 
 |Command  | Description |
 |--|--|
-| hello | Says Hi :flushed: |
-|invitebot|PM you the bot's authorization link|
+|hello|Says Hi :flushed:|
+|invitebot|Sends ตัวอะไรไม่รู้'s invitation link|
 |codechannel add|Adds a code channel|
 |codechannel remove|Remove a code channel|
 |codechannel check|Show all server's code channel|
@@ -45,16 +45,16 @@ Every command is called by / (slash).
 |math solve|Solve an equation|
 |say|Text to speech|
 |play|Play a sound|
-|disconnect|Disconnect from the voice channel|
-|travel|Randomly moves the command user across multiple voice channel|
-|travel user|Randomly moves the assigned user across multiple voice channel|
+|disconnect|Disconnects bot from the voice channel|
+|travel|Randomly moves the command user across multiple voice channels|
+|travel user|Randomly moves the assigned user across multiple voice channels|
 |snap|Disconnect half of the users that are in the voice channel|
 |snap user|50% chance for disconnecting the assigned user or the command user|
 |tu|[รายละเอียดถูกลบโดยรัฐบาลไทย]|
 |pom|[รายละเอียดถูกลบโดยรัฐบาลไทย]|
 |oneonetwo|[รายละเอียดถูกลบโดยรัฐบาลไทย]|
-|poker|Plays poker|
-|pog|Plays pog|
+|poker|Plays Poker|
+|pog|Plays Pok Deng|
 
 
 <h3>Buggy</h3>
