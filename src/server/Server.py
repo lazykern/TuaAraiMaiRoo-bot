@@ -1,4 +1,5 @@
 import discord
+from discord import embeds
 from discord_slash import SlashContext
 from discord.utils import get
 from discord import Embed
@@ -86,16 +87,6 @@ def get_nisit_data(id: str):
     return nisit_data
 
 
-async def get_discorduser_cpe35_form(ctx: SlashContext, verify_msg: discord.Message):
-    cpe35_form = scan_cpe35_sheet()
-
-    if str(ctx.author) not in cpe35_form.discord_usr.values:
-        await verify_msg.edit("Verification failed! Discord username or tag is not the same as in the form.")
-        await ctx.author.send(f"Your discord username or tag is not the same as in the form.\nPlease recheck what you have submitted in the form is **valid**.")
-        return
-
-    return cpe35_form[cpe35_form.discord_usr == str(ctx.author)].to_dict("records")[0]
-
 
 # def is_verified_email(email:str):
 #     return email in ses.list_verified_email_addresses()['VerifiedEmailAddresses']
@@ -154,9 +145,15 @@ async def ku_verify(ctx: SlashContext):
         return
 
     verify_msg = await ctx.send(embed=verify_embed(ctx))
-
-    form_data = await get_discorduser_cpe35_form(ctx, verify_msg)
-
+    
+    cpe35_form = scan_cpe35_sheet()
+    if str(ctx.author) not in cpe35_form.discord_usr.values:
+        await verify_msg.edit(content=f"Verification failed! Discord username or tag ({str(ctx.author)}) is not the same as in the form.", embed=verify_embed(ctx, color=colors['fail']))
+        await ctx.author.send(f"Your discord username or tag is not the same as in the form.\nPlease recheck what you have submitted in the form is **valid**.")
+        return
+    
+    form_data = cpe35_form[cpe35_form.discord_usr == str(ctx.author)].to_dict("records")[0]
+    
     pirun_data = get_pirun_data(form_data['id'])
     email = form_data['email']
 
@@ -169,7 +166,7 @@ async def ku_verify(ctx: SlashContext):
     nisit_data = get_nisit_data(form_data["id"])
 
     if nisit_data is None:
-        await verify_msg.edit(embed=verify_embed(color=colors['fail'], email_emb='Passed', id_emb='Failed'))
+        await verify_msg.edit(embed=verify_embed(ctx, color=colors['fail'], email_emb='Passed', id_emb='Failed'))
         await ctx.author.send(f"{form_data['id']} is not found in the KU Database.\nPlease recheck what you have submitted in the form is **valid**.")
         return
 
