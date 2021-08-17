@@ -148,8 +148,8 @@ async def ku_verify(ctx: SlashContext):
     
     cpe35_form = scan_cpe35_sheet()
     if str(ctx.author) not in cpe35_form.discord_usr.values:
-        await verify_msg.edit(content=f"Verification failed! Discord username or tag ({str(ctx.author)}) is not the same as in the form.", embed=verify_embed(ctx, color=colors['fail']))
-        await ctx.author.send(f"Your discord username or tag is not the same as in the form.\nPlease recheck what you have submitted in the form is **valid**.")
+        await verify_msg.edit(embed=verify_embed(ctx, color=colors['fail']))
+        await ctx.author.send(f"Your discord username or tag ({str(ctx.author)}) is not the same as in the form.\nPlease recheck what you have submitted in the form is **valid**.")
         return
     
     form_data = cpe35_form[cpe35_form.discord_usr == str(ctx.author)].to_dict("records")[0]
