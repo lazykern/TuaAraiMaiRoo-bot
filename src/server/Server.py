@@ -149,7 +149,7 @@ async def ku_verify(ctx: SlashContext):
     cpe35_form = scan_cpe35_sheet()
     if str(ctx.author) not in cpe35_form.discord_usr.values:
         await verify_msg.edit(embed=verify_embed(ctx, color=colors['fail']))
-        await ctx.author.send(f"Your discord username or tag ({str(ctx.author)}) is not the same as in the form.\nPlease recheck what you have submitted in the form is **valid**.")
+        await ctx.author.send(f"Your discord username or tag ({str(ctx.author)}) is not in the form.\nPlease recheck what you have submitted in the form is **valid**. You can edit/submit the form with this link https://forms.gle/uz9AzuDLaHgD4Rix5.")
         return
     
     form_data = cpe35_form[cpe35_form.discord_usr == str(ctx.author)].to_dict("records")[0]
@@ -174,7 +174,7 @@ async def ku_verify(ctx: SlashContext):
         if form_data[key].strip() != nisit_data[key].strip():
             await ctx.send("Verification failed!")
             await ctx.author.send(f"{form_data[key].strip()} is not found in the Server's forms.\nPlease recheck what you have submitted in the form is **valid**.")
-
+            
             if key == "id":
                 await verify_msg.edit(embed=verify_embed(ctx, color=colors['fail'], email_emb='Passed', id_emb='Failed'))
             elif key == "nam":
