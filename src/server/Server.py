@@ -124,7 +124,7 @@ def get_nisit_data(id: str):
 #         await ctx.author.send("Your E-mail is verified!")
 #         return True
 
-def verify_embed(ctx, color=0xfffff, email_emb: str = '-', id_emb: str = '-', nam_emb: str = '-', sur_emb: str = '-', role_emb: str = None, show_email=True):
+def verify_embed(ctx, color=0xfffff, email_emb: str = '-', id_emb: str = '-', nam_emb: str = '-', sur_emb: str = '-', role_emb: str = None):
     embed = discord.Embed(
         title="CPE35 Server Identity Verification", color=color)
     embed.set_thumbnail(url=ctx.author.avatar_url)
@@ -193,18 +193,25 @@ async def ku_verify(ctx: SlashContext):
 
     if nisit_data['department'] == "วิศวกรรมคอมพิวเตอร์" and nisit_data['campus'] == "วิทยาเขตบางเขน":
         gen = int(nisit_data["id"][:2]) - 64 + 35
-        if gen < 31 or gen > 35:
-            rolename = f"CPEs"
-        else:
-            rolename = f"CPE{str(gen)}"
+        rolename = f"CPE{str(gen)}"
+        if rolename not in [y.name for y in ctx.guild.roles]:
+            role = await ctx.guild.create_role(name=rolename)
+        else: 
+            role = get(ctx.guild.roles,name=rolename)
+
     else:
-        rolename = "PEASANT"
+        role = None
 
     await verify_msg.edit(embed=verify_embed(ctx, color=colors['pass'], email_emb='Passed', id_emb='Passed', nam_emb='Passed', sur_emb='Passed', role_emb=rolename))
+    
+    if "Verified" not in [y.name for y in ctx.guild.roles]:
+        await ctx.guild.create_role(name="Verified")
+        
     if "Verified" not in [y.name for y in ctx.author.roles]:
-        await ctx.author.add_roles(get(ctx.guild.roles, name=rolename))
         await ctx.author.add_roles(get(ctx.guild.roles, name="Verified"))
-        await ctx.author.send(f"You have been assigned as {rolename}")
+        if role is not None:
+            await ctx.author.add_roles(role)
+            await ctx.author.send(f"You have been assigned as {role.name}")
         cpe35_server_user.put_item(Item={'id': ctx.author_id,
                                          'verified_name': str(ctx.author),
                                          'email_ku': email,
