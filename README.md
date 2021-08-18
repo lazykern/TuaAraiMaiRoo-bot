@@ -28,7 +28,7 @@ Every command is called by / (slash).
 
 |Command  | Description |
 |--|--|
-|verify|Verifies that you are a true KU student|
+|verify|Verifies that you are a true KU student and gives you a role. (Special for CPE student)|
 |info|Show KU info of a verified discord user|
 
 
@@ -54,7 +54,7 @@ Every command is called by / (slash).
 |pom|[รายละเอียดถูกลบโดยรัฐบาลไทย]|
 |oneonetwo|[รายละเอียดถูกลบโดยรัฐบาลไทย]|
 |poker|Plays Poker|
-|pog|Plays Pok Deng|
+|pokdeng|Plays Pok Deng|
 
 
 <h3>Buggy</h3>
