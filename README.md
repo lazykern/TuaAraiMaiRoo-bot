@@ -53,8 +53,9 @@ Every command is called by / (slash).
 |tu|[รายละเอียดถูกลบโดยรัฐบาลไทย]|
 |pom|[รายละเอียดถูกลบโดยรัฐบาลไทย]|
 |oneonetwo|[รายละเอียดถูกลบโดยรัฐบาลไทย]|
-|poker|Plays Poker|
-|pokdeng|Plays Pok Deng|
+|game poker|Play Poker|
+|game pokdeng|Play Pok Deng|
+|game rockpaperscissors|Play Rock Paper Scissors (Singleplayer/Multiplayer)|
 
 
 <h3>Buggy</h3>
