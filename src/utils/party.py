@@ -1,7 +1,7 @@
 async def get_players(bot, ctx):
     players = []
     intro_str = 'พิมพ์ **y** เพื่อเข้าร่วมปาร์ตี้\nพิมพ์ **n** เพื่อออกจากปาร์ตี้\nพิมพ์ **done** เพื่อยืนยันปาร์ตี้\nพิมพ์ **cancel** เพื่อยกเลิกการสร้างปาร์นี้'
-    # ให้ bot ส่งคำแนะนำเข้า text channel
+
     await ctx.send(intro_str)
 
     def check(msg):
@@ -15,7 +15,6 @@ async def get_players(bot, ctx):
             players.append(msg.author)
             players = list(set(players))
             await ctx.channel.send(f"ตอนนี้มี {' '.join([str(member) for member in players])} เป็นผู้เล่น ({len(players)} คน)")
-            print(players)
 
         elif (msg.content.lower() == "y") & (msg.author in players):
             await ctx.channel.send(f"เองอยู่ในเกมแล้วไอเปรด {msg.author}")

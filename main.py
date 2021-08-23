@@ -17,6 +17,7 @@ from src.utils.command import SlashChoice
 from src.server.Server import ku_verify, ku_info
 from src.poker.poker import poker_play
 from src.pog.pog import pog_play
+from src.games import rockpaperscissors
 from src.maths.maths import solve_eq
 from src.audio.audio import say, play, disconnect
 from discord_slash.utils.manage_commands import create_option, create_choice
@@ -100,24 +101,27 @@ async def send_fmc(msg: discord.Message, language: str):
 @bot.event
 async def on_message(msg: discord.Message):
     global GuildData, GuildIDs
-    if msg.author.bot or msg.content[0] in ['_', '*', '`']:
-        return
+    try:
+        if msg.guild.id not in GuildIDs:
+            addGuild(msg.guild.id)
+            print(f'added {msg.guild.id} to guild db')
+            from src.utils.codechannel import GuildData, GuildIDs
 
-    if msg.guild.id not in GuildIDs:
-        addGuild(msg.guild.id)
-        print(f'added {msg.guild.id} to guild db')
-        from src.utils.codechannel import GuildData, GuildIDs
+        channel = msg.channel
+        guilddata = GuildData(msg.guild.id)
 
-    channel = msg.channel
-    guilddata = GuildData(msg.guild.id)
+        if channel.id in guilddata.codechannel_ids:
+            language = guilddata.channeldata(channel.id)['lang']
 
-    if channel.id in guilddata.codechannel_ids:
-        language = guilddata.channeldata(channel.id)['lang']
+            if msg.author.bot or msg.content[0] in ['_', '*', '`']:
+                return
 
-        await send_fmc(msg, language)
+            await send_fmc(msg, language)
 
-        await msg.delete()
-        return
+            await msg.delete()
+            return
+    except:
+        pass
 
 
 @slash.slash(name="hello", description="Say hi to the bot. Most used to check if bot is ready.", guild_ids=GUILD_IDS)
@@ -131,16 +135,29 @@ async def send_botinvitelink(ctx: discord_slash.SlashContext):
     await ctx.send('https://tinyurl.com/blackhole112')
 
 
-@slash.slash(name="poker", description="Plays Poker.", guild_ids=GUILD_IDS)
-async def poker(ctx: discord_slash.SlashContext):
+@slash.subcommand(base='game', name="poker", description="Plays Poker.", guild_ids=GUILD_IDS)
+async def _poker(ctx: discord_slash.SlashContext):
     print(f'{str(ctx.author)} used {ctx.name}')
     await poker_play(bot, ctx)
 
 
-@slash.slash(name="pokdeng", description="Plays Pok Deng.", guild_ids=GUILD_IDS)
-async def pog(ctx: discord_slash.SlashContext):
+@slash.subcommand(base='game', name="pokdeng", description="Plays Pok Deng.", guild_ids=GUILD_IDS)
+async def _pog(ctx: discord_slash.SlashContext):
     print(f'{str(ctx.author)} used {ctx.name}')
     await pog_play(bot, ctx)
+
+
+@slash.subcommand(base='game', subcommand_group='rockpaperscissors', name='singleplayer',
+                  description='Play Rock Paper Scissors with bot.', guild_ids=GUILD_IDS)
+async def _rockpaperscissors(ctx: discord_slash.SlashContext):
+    print(f'{str(ctx.author)} used {ctx.name}')
+    await rockpaperscissors.RockPaperScissors.PlaySP(bot, ctx)
+
+@slash.subcommand(base='game', subcommand_group='rockpaperscissors', name='multiplayer',
+                  description='Play Rock Paper Scissors with friends.', guild_ids=GUILD_IDS)
+async def _rockpaperscissors(ctx: discord_slash.SlashContext):
+    print(f'{str(ctx.author)} used {ctx.name}')
+    await rockpaperscissors.RockPaperScissors.PlayMP(bot, ctx)
 
 
 @slash.slash(name="say", description="Say some thing(Text to speech)", guild_ids=GUILD_IDS,
@@ -284,7 +301,7 @@ async def _info(ctx: discord_slash.SlashContext, user: discord.Member = None):
 
 
 @slash.subcommand(base='math', name='solve', description='Solve an equation.', guild_ids=GUILD_IDS,
-                  options=[create_option(name='equation', description='The equation you want to solve. (If possible, move the data after (=) aside)',
+                  options=[create_option(name='equation', description='The equation you want to solve. (If possible, move the expression after (=) aside)',
                                          option_type=SlashCommandOptionType.STRING, required=True),
                            create_option(name='variable', description='The variable you want to solve for.',
                                          option_type=SlashCommandOptionType.STRING, required=False),
