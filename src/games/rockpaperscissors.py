@@ -49,13 +49,13 @@ class Player:
         self.nick = getNick(player)
         self.bot = False
 
-    async def getChoice(self, gametype:str = 'mp', ctx:discord_slash.SlashContext=None) -> discord.Message:
+    async def getChoice(self, mode:str = 'mp', ctx:discord_slash.SlashContext=None) -> discord.Message:
         
-        if gametype == 'mp':
+        if mode == 'mp':
             message = await self.member.send('Rock, Paper or Scissors?')
-        elif gametype == 'sp' and ctx is not None:
+        elif mode == 'sp' and ctx is not None:
             message = await ctx.channel.send('Rock, Paper or Scissors?')
-        elif gametype == 'sp' and ctx is None:
+        elif mode == 'sp' and ctx is None:
             raise SyntaxError("Please specify the parameter named 'ctx'.")
 
         await message.add_reaction(Rock.emoji)
@@ -70,7 +70,7 @@ class Player:
             try:
                 reaction, reaction_user = await BOT.wait_for("reaction_add", timeout=15.0, check=check)
                 
-                if gametype == 'sp' and reaction_user != self.member:
+                if mode == 'sp' and reaction_user != self.member:
                     await ctx.channel.send(f"yar suek {reaction_user.mention}", tts=True, delete_after=5)
                     continue
 
