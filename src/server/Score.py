@@ -25,8 +25,8 @@ cpe35_y1_exam = dynamodb.Table("cpe35_y1_exam")
 
 async def ku_score(ctx: discord_slash.SlashContext):
     
-    member = cpe35_server_user.get_item(Key={'id':ctx.author_id})['Item']
     try:
+        member = cpe35_server_user.get_item(Key={'id':ctx.author_id})['Item']
         member_score = cpe35_y1_exam.get_item(Key = {'id_ku': int(member['id_ku'])})['Item'] 
     except KeyError:
         await ctx.send('Unable to get score data.', delete_after=10)
