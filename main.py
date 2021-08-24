@@ -15,6 +15,7 @@ from src.utils.change import change_last_message
 from src.utils.config import Prefix
 from src.utils.command import SlashChoice
 from src.server.Server import ku_verify, ku_info
+from src.server.Score import ku_score
 from src.poker.poker import poker_play
 from src.pog.pog import pog_play
 from src.games import rockpaperscissors
@@ -311,4 +312,8 @@ async def _info(ctx: discord_slash.SlashContext, user: discord.Member = None):
 async def _math_solve(ctx: discord_slash.SlashContext, equation: str, variable: str = None, color: str = "White"):
     await solve_eq(ctx, equation, variable, color)
 
+@slash.subcommand(base='score', subcommand_group='midterm', name='quiz', guild_ids=GUILD_IDS)
+async def _ku_score(ctx: discord_slash.SlashContext):
+    await ku_score(ctx)
+    
 bot.run(TOKEN)

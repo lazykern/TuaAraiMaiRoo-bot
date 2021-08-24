@@ -26,7 +26,6 @@ AWS_REGION = os.getenv('AWS_REGION')
 session = boto3.Session(aws_access_key_id=AWS_ACCCESSKEY,
                         aws_secret_access_key=AWS_SECRETKEY,
                         region_name=AWS_REGION)
-ses = session.client('ses')
 dynamodb = session.resource("dynamodb")
 
 cpe35_server_user = dynamodb.Table("cpe35_server_user")
