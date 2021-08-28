@@ -234,6 +234,13 @@ async def audio_play(ctx: discord_slash.SlashContext, sound):
     print(f'{str(ctx.author)} used {ctx.name}')
     await play(bot, ctx, sound, political=True)
 
+@slash.slash(name='n', description='Play N Sound for user [Warning! This sound can hurt your ears].',guild_ids=GUILD_IDS , options=[create_option(name='sound',
+                                         description='Select Sound To play',
+                                         option_type=SlashCommandOptionType.STRING, required=True,
+                                         choices=SlashChoice.choiceNVoice)])
+async def audio_play(ctx:discord_slash.SlashContext,sound:str):
+    print(f'{str(ctx.author)} used {ctx.name}')
+    await play(bot, ctx, sound)
 
 @slash.slash(name="disconnect", description="Disconnect bot from the Voice Channel", guild_ids=GUILD_IDS)
 async def audio_disconnect(ctx: discord_slash.SlashContext):

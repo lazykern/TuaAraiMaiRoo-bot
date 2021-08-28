@@ -123,7 +123,7 @@ def get_nisit_data(id: str):
 #         await ctx.author.send("Your E-mail is verified!")
 #         return True
 
-def verify_embed(ctx, color=0xfffff, email_emb: str = '-', id_emb: str = '-', nam_emb: str = '-', sur_emb: str = '-', role_emb: str = None):
+def verify_embed(ctx:SlashContext, color=0xfffff, email_emb: str = '-', id_emb: str = '-', nam_emb: str = '-', sur_emb: str = '-', role_emb: str = None):
     embed = discord.Embed(
         title="CPE35 Server Identity Verification", color=color)
     embed.set_thumbnail(url=ctx.author.avatar_url)
