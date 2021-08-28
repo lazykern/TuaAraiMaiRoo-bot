@@ -26,9 +26,7 @@ class SlashChoice:
         {"value": "oof",    "name": "OOF"},
         {"value": "intro",  "name": "Intro"},
         {"value": "blessing", "name": "Blessing"},
-        {"value": "letitbe",    "name": "Let it be"},
-        {"value": "n", "name": "N"},
-        {"value": "n2", "name": "N but dog"}
+        {"value": "letitbe",    "name": "Let it be"}
     ]
 
     choicePuiVoice = [
@@ -175,4 +173,9 @@ class SlashChoice:
         {"value": "yaml",       "name": "YAML"},
         {"value": "typescript", "name": "TypeScript"},
         {"value": "vbnet",      "name": "Visual Basic .NET"}
+    ]
+
+    choiceNVoice = [
+        {"value": "n1",       "name": "1"},
+        {"value": "n2",       "name": "2"},
     ]
