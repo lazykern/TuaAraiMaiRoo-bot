@@ -26,7 +26,9 @@ class SlashChoice:
         {"value": "oof",    "name": "OOF"},
         {"value": "intro",  "name": "Intro"},
         {"value": "blessing", "name": "Blessing"},
-        {"value": "letitbe",    "name": "Let it be"}
+        {"value": "letitbe",    "name": "Let it be"},
+        {"value": "n", "name": "N"},
+        {"value": "nv2", "name": "N but dog"}
     ]
 
     choicePuiVoice = [
