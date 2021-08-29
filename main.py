@@ -2,28 +2,25 @@
 import os
 import discord
 from discord import activity
-from discord.utils import get
 import discord_slash
 from discord_slash import SlashCommand
 from discord_slash.model import SlashCommandOptionType
 from discord.ext import commands
-from sympy.polys.polytools import content
-from src.utils.codechannel import *
+from src.server.codechannel import *
 from src.utils.kick import random_kick
 from src.utils.travel import random_travel
-from src.utils.change import change_last_message
-from src.utils.config import Prefix
 from src.utils.command import SlashChoice
 from src.server.Server import ku_verify, ku_info
 from src.server.Score import ku_score
-from src.poker.poker import poker_play
-from src.pog.pog import pog_play
+from src.server.codechannel import GuildData, GuildIDs
+from src.games.poker.poker import poker_play
+from src.games.pog.pog import pog_play
 from src.games import rockpaperscissors
 from src.maths.maths import solve_eq
 from src.audio.audio import say, play, disconnect
 from discord_slash.utils.manage_commands import create_option, create_choice
 from src.format.code import formatCode, formatCode_emb
-from src.utils.member import getNick
+from src.member.member import getNick
 from dotenv import load_dotenv
 from datetime import datetime
 import platform
@@ -37,7 +34,7 @@ TOKEN = os.getenv("TOKEN")
 
 activity = discord.Activity(
     type=discord.ActivityType.competing, name='the universe')
-bot = commands.Bot(command_prefix=Prefix,
+bot = commands.Bot(command_prefix='N',
                    intents=discord.Intents.all(),
                    case_insensitive=True,
                    activity=activity,
@@ -67,7 +64,7 @@ async def on_guild_join(guild):
     if guild.id not in GuildIDs:
         addGuild(guild.id)
         print(f'added {guild.id} to guild db')
-        from src.utils.codechannel import GuildData, GuildIDs
+        from src.server.codechannel import GuildData, GuildIDs
 
 
 async def send_fmc(msg: discord.Message, language: str):
@@ -106,7 +103,7 @@ async def on_message(msg: discord.Message):
         if msg.guild.id not in GuildIDs:
             addGuild(msg.guild.id)
             print(f'added {msg.guild.id} to guild db')
-            from src.utils.codechannel import GuildData, GuildIDs
+            from src.server.codechannel import GuildData, GuildIDs
 
         channel = msg.channel
         guilddata = GuildData(msg.guild.id)
@@ -114,7 +111,7 @@ async def on_message(msg: discord.Message):
         if channel.id in guilddata.codechannel_ids:
             language = guilddata.channeldata(channel.id)['lang']
 
-            if msg.author.bot or msg.content[0] in ['_', '*', '`']:
+            if msg.author.bot or msg.content[0] in ['_', '*', '`','http','@','<']:
                 return
 
             await send_fmc(msg, language)
@@ -258,12 +255,6 @@ async def snap_kick(ctx: discord_slash.SlashContext, user: discord.Member = None
 async def travel_chanel(ctx: discord_slash.SlashContext, user: discord.Member = None):
     print(f'{str(ctx.author)} used {ctx.name}')
     await random_travel(bot, ctx, user)
-
-
-@slash.slash(name="change", description="Convert the keyboard layout of your last message between en-th.", guild_ids=GUILD_IDS)
-async def change_message(ctx: discord_slash.SlashContext):
-    print(f'{str(ctx.author)} used {ctx.name}')
-    await change_last_message(ctx)
 
 
 @slash.subcommand(base='codechannel', name='add', description='Add auto text formatting to a text channel.', guild_ids=GUILD_IDS,

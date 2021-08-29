@@ -1,5 +1,5 @@
-from src.utils.member import getNick
 import discord
+from src.member.member import getNick
 
 
 def formatCode_emb(msg: discord.Message, language: str, sourcecode: str):

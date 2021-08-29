@@ -1,29 +1,15 @@
 import discord
 import discord_slash
-from discord.utils import get
-import os
-import boto3
-from dotenv import load_dotenv
-load_dotenv()
-AWS_ACCCESSKEY = os.getenv('AWS_ACCCESSKEY')
-AWS_SECRETKEY = os.getenv('AWS_SECRETKEY')
-AWS_REGION = os.getenv('AWS_REGION')
-session = boto3.Session(aws_access_key_id=AWS_ACCCESSKEY,
-                        aws_secret_access_key=AWS_SECRETKEY, region_name=AWS_REGION)
-dynamodb = session.resource('dynamodb')
+from src.utils import aws
 
-
-class table:
-    Guilds = dynamodb.Table('guilds')
-
-
-GuildsData = table.Guilds.scan()['Items']
-GuildIDs = [guild['guildID'] for guild in GuildsData]
+GuildsTable = aws.GuildsTable
+GuildsData = aws.GuildsData
+GuildIDs = aws.GuildIDs
 
 isUpdated = False
 
 
-def updateTable(table_name: table, item: dict):
+def updateTable(table_name, item: dict):
     global isUpdated
     isUpdated = True
     table_name.put_item(Item=item)
@@ -32,9 +18,9 @@ def updateTable(table_name: table, item: dict):
 def addGuild(GUILD_ID: int):
     global GuildsData
     global GuildIDs
-    table.Guilds.put_item(Item={"guildID": GUILD_ID,
+    GuildsTable.put_item(Item={"guildID": GUILD_ID,
                                 "codechannels": []})
-    GuildsData = table.Guilds.scan()['Items']
+    GuildsData = GuildsTable.scan()['Items']
     GuildIDs = [guild['guildID'] for guild in GuildsData]
 
 
@@ -46,7 +32,7 @@ class GuildData:
 
         if isUpdated:
             isUpdated = False
-            GuildsData = table.Guilds.scan()['Items']
+            GuildsData = GuildsTable.scan()['Items']
         GUILD_DATA = next(
             (item for item in GuildsData if item['guildID'] == GUILD_ID), None)
         self.data = GUILD_DATA
@@ -137,7 +123,7 @@ async def Add(ctx: discord_slash.SlashContext, channel: discord.TextChannel, lan
 
         await ctx.send(f"เพิ่ม {channel.mention} เป็น Code Channel ภาษา {language} แล้ว")
 
-    updateTable(table.Guilds, guilddata.data)
+    updateTable(GuildsTable, guilddata.data)
 
 
 async def Remove(ctx: discord_slash.SlashContext, channel: discord.TextChannel):
@@ -167,7 +153,7 @@ async def Remove(ctx: discord_slash.SlashContext, channel: discord.TextChannel):
     else:
         await ctx.send(f"{channel.mention} ไม่ได้เป็น Code Channel อยู่แล้ว")
 
-    updateTable(table.Guilds, guilddata.data)
+    updateTable(GuildsTable, guilddata.data)
 
 
 class Permission:

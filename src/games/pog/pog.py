@@ -2,9 +2,9 @@ from typing import List, Tuple
 from random import sample, shuffle
 
 
-from src.utils.party import get_players
+from src.games.party import get_players
 
-from .utils import DECKS_OF_CARDS
+from src.games.pog.utils import DECKS_OF_CARDS
 
 
 def get_random_cards(players) -> Tuple[List[Tuple[int, int]], List[int]]:

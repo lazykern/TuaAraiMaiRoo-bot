@@ -1,7 +1,7 @@
 from os import name
 from discord_slash import SlashContext
 from discord import Embed
-from src.utils.member import getNick
+from src.member.member import getNick
 
 
 class SlashHelp:

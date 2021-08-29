@@ -167,7 +167,7 @@ class SlashChoice:
         {"value": "py",         "name": "Python"},
         {"value": "r",          "name": "R"},
         {"value": "rust",       "name": "Rust"},
-        {"value": "shell",      "name": "Shell Session"},
+        {"value": "shell",      "name": "Shell session"},
         {"value": "sql",        "name": "SQL"},
         {"value": "swift",      "name": "Swift"},
         {"value": "yaml",       "name": "YAML"},
