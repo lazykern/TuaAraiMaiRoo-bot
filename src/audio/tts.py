@@ -1,6 +1,6 @@
 from gtts import gTTS
 from discord import FFmpegPCMAudio
-from src.audio.vc import get_PATH_ffmpeg
+from src.utils.vc import get_PATH_ffmpeg
 from src.utils.config import CONFIG
 import googletrans
 

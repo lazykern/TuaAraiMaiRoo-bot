@@ -1,8 +1,8 @@
 from discord import FFmpegPCMAudio, Embed
-from src.member.member import getNick
+from src.utils.vc import joinVoiceChannel, leaveVoiceChannel, get_PATH_ffmpeg
+from src.utils.member import getNick
 from src.utils.config import CONFIG, MP3_files
 from src.audio.tts import repeat
-from src.audio.vc import joinVoiceChannel, leaveVoiceChannel, get_PATH_ffmpeg
 from src.utils.command import fetchArguments
 PATH_ffmpeg = get_PATH_ffmpeg()
 

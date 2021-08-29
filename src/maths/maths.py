@@ -2,6 +2,7 @@ import sympy
 import discord_slash
 import discord
 from sympy import Expr, solve, Symbol, Eq
+from sympy.core.symbol import var
 
 
 def string_to_expr(s: str) -> Expr:

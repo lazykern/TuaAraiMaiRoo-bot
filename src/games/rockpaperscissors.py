@@ -2,8 +2,8 @@ import discord
 import discord_slash
 from discord.activity import Game
 from typing import List
-from src.games.party import get_players
-from src.member.member import getNick
+from src.utils.party import get_players
+from src.utils.member import getNick
 from random import shuffle, choice
 from itertools import chain
 

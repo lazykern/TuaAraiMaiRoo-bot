@@ -1,18 +1,34 @@
 import discord
+from discord import embeds
 from discord_slash import SlashContext
 from discord.utils import get
+from discord import Embed
+from google.auth.transport import Response
 from pandas import DataFrame
 from bs4 import BeautifulSoup
 import requests
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from pandas import DataFrame
-
+import boto3
+import os
 import json
+from dotenv import load_dotenv
 
 
 colors = {'fail': 0xb01111,
           'pass': 0x37e407}
+
+load_dotenv()
+AWS_ACCCESSKEY = os.getenv('AWS_ACCCESSKEY')
+AWS_SECRETKEY = os.getenv('AWS_SECRETKEY')
+AWS_REGION = os.getenv('AWS_REGION')
+session = boto3.Session(aws_access_key_id=AWS_ACCCESSKEY,
+                        aws_secret_access_key=AWS_SECRETKEY,
+                        region_name=AWS_REGION)
+dynamodb = session.resource("dynamodb")
+
+cpe35_server_user = dynamodb.Table("cpe35_server_user")
 
 
 SERVICE_ACCOUNT_FILE = 'gcp_client.json'
@@ -69,6 +85,43 @@ def get_nisit_data(id: str):
 
     return nisit_data
 
+
+
+# def is_verified_email(email:str):
+#     return email in ses.list_verified_email_addresses()['VerifiedEmailAddresses']
+
+
+# def while_not_verified(email:str, timeout:int):
+#     timeout = time.time() + timeout
+#     while not is_verified_email(email):
+#         if time.time() > timeout:
+#             return False
+#     return True
+
+# async def verify_ku_email(ctx: SlashContext, email:str):
+
+#     if ctx.guild_id not in [847172394316464178, 440532168389689345]:
+#         await ctx.send(f"This server does not support verification command.", delete_after=10)
+#         return
+
+#     if email == '':
+#         email = get_pirun_data(email.split('@')[0])['google_email']
+
+#     if not is_verified_email(email):
+
+#         ses.verify_email_identity(EmailAddress = email)
+#         await ctx.author.send("Verification E-mail sent!\nPlease check your KU E-mail")
+
+#         if while_not_verified(email, 5*60):
+#             await ctx.author.send("Your E-mail is verified!")
+#             return True
+#         else:
+#             await ctx.author.send("E-mail verification timed out (5 mins)")
+#             return False
+
+#     else:
+#         await ctx.author.send("Your E-mail is verified!")
+#         return True
 
 def verify_embed(ctx:SlashContext, color=0xfffff, email_emb: str = '-', id_emb: str = '-', nam_emb: str = '-', sur_emb: str = '-', role_emb: str = None):
     embed = discord.Embed(
@@ -158,7 +211,7 @@ async def ku_verify(ctx: SlashContext):
         if role is not None:
             await ctx.author.add_roles(role)
             await ctx.author.send(f"You have been assigned as {role.name}")
-        aws.cpe35_user_table.put_item(Item={'id': ctx.author_id,
+        cpe35_server_user.put_item(Item={'id': ctx.author_id,
                                          'verified_name': str(ctx.author),
                                          'email_ku': email,
                                          'email_other': pirun_data['other_email'],
@@ -178,7 +231,7 @@ def ku_info(ctx: SlashContext, user: discord.Member = None):
     if user is None:
         user = ctx.author
 
-    response = aws.cpe35_user_table.get_item(Key={"id": user.id})
+    response = cpe35_server_user.get_item(Key={"id": user.id})
 
     if "Item" not in response:
         em = discord.Embed(

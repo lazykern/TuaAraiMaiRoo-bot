@@ -1,6 +1,6 @@
 from random import randint
 from src.audio.audio import say
-from src.member.member import getNick
+from src.utils.member import getNick
 import time
 import discord
 
