@@ -19,7 +19,7 @@ def addGuild(GUILD_ID: int):
     global GuildsData
     global GuildIDs
     GuildsTable.put_item(Item={"guildID": GUILD_ID,
-                                "codechannels": []})
+                               "codechannels": []})
     GuildsData = GuildsTable.scan()['Items']
     GuildIDs = [guild['guildID'] for guild in GuildsData]
 

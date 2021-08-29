@@ -7,7 +7,7 @@ AWS_SECRETKEY = os.getenv('AWS_SECRETKEY')
 AWS_REGION = os.getenv('AWS_REGION')
 
 session = boto3.session(aws_access_key_id=AWS_ACCCESSKEY,
-                        aws_secret_access_key=AWS_SECRETKEY, 
+                        aws_secret_access_key=AWS_SECRETKEY,
                         region_name=AWS_REGION)
 dynamodb = session.resource('dynamodb')
 

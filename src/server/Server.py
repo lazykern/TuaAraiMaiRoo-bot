@@ -86,7 +86,6 @@ def get_nisit_data(id: str):
     return nisit_data
 
 
-
 # def is_verified_email(email:str):
 #     return email in ses.list_verified_email_addresses()['VerifiedEmailAddresses']
 
@@ -123,7 +122,7 @@ def get_nisit_data(id: str):
 #         await ctx.author.send("Your E-mail is verified!")
 #         return True
 
-def verify_embed(ctx:SlashContext, color=0xfffff, email_emb: str = '-', id_emb: str = '-', nam_emb: str = '-', sur_emb: str = '-', role_emb: str = None):
+def verify_embed(ctx: SlashContext, color=0xfffff, email_emb: str = '-', id_emb: str = '-', nam_emb: str = '-', sur_emb: str = '-', role_emb: str = None):
     embed = discord.Embed(
         title="CPE35 Server Identity Verification", color=color)
     embed.set_thumbnail(url=ctx.author.avatar_url)
@@ -144,15 +143,16 @@ async def ku_verify(ctx: SlashContext):
         return
 
     verify_msg = await ctx.send(embed=verify_embed(ctx))
-    
+
     cpe35_form = scan_cpe35_sheet()
     if str(ctx.author) not in cpe35_form.discord_usr.values:
         await verify_msg.edit(embed=verify_embed(ctx, color=colors['fail']))
         await ctx.author.send(f"Your discord username or tag ({str(ctx.author)}) is not in the form.\nPlease recheck what you have submitted in the form is **valid**. You can edit/submit the form with this link https://forms.gle/uz9AzuDLaHgD4Rix5.")
         return
-    
-    form_data = cpe35_form[cpe35_form.discord_usr == str(ctx.author)].to_dict("records")[0]
-    
+
+    form_data = cpe35_form[cpe35_form.discord_usr ==
+                           str(ctx.author)].to_dict("records")[0]
+
     pirun_data = get_pirun_data(form_data['id'])
     email = form_data['email']
 
@@ -173,7 +173,7 @@ async def ku_verify(ctx: SlashContext):
         if form_data[key].strip() != nisit_data[key].strip():
             await ctx.send("Verification failed!")
             await ctx.author.send(f"{form_data[key].strip()} is not found in the Server's forms.\nPlease recheck what you have submitted in the form is **valid**.")
-            
+
             if key == "id":
                 await verify_msg.edit(embed=verify_embed(ctx, color=colors['fail'], email_emb='Passed', id_emb='Failed'))
             elif key == "nam":
@@ -195,17 +195,17 @@ async def ku_verify(ctx: SlashContext):
         rolename = f"CPE{str(gen)}"
         if rolename not in [y.name for y in ctx.guild.roles]:
             role = await ctx.guild.create_role(name=rolename)
-        else: 
-            role = get(ctx.guild.roles,name=rolename)
+        else:
+            role = get(ctx.guild.roles, name=rolename)
 
     else:
         role = None
 
     await verify_msg.edit(embed=verify_embed(ctx, color=colors['pass'], email_emb='Passed', id_emb='Passed', nam_emb='Passed', sur_emb='Passed', role_emb=rolename))
-    
+
     if "Verified" not in [y.name for y in ctx.guild.roles]:
         await ctx.guild.create_role(name="Verified")
-        
+
     if "Verified" not in [y.name for y in ctx.author.roles]:
         await ctx.author.add_roles(get(ctx.guild.roles, name="Verified"))
         if role is not None:

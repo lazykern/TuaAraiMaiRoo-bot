@@ -31,16 +31,18 @@ class Timeout:
     emoji = '⏰'
     name = 'timeout'
 
+
 class BotPlayer:
-    
+
     def __init__(self):
         self.member = BOT.user
         self.name = self.nick = BOT.user.name
         self.bot = True
-        
+
     def getChoice(self):
         self.choice = choice([Rock, Paper, Scissors])
-    
+
+
 class Player:
 
     def __init__(self, player: discord.Member = None):
@@ -49,8 +51,8 @@ class Player:
         self.nick = getNick(player)
         self.bot = False
 
-    async def getChoice(self, mode:str = 'mp', ctx:discord_slash.SlashContext=None) -> discord.Message:
-        
+    async def getChoice(self, mode: str = 'mp', ctx: discord_slash.SlashContext = None) -> discord.Message:
+
         if mode == 'mp':
             message = await self.member.send('Rock, Paper or Scissors?')
         elif mode == 'sp' and ctx is not None:
@@ -69,7 +71,7 @@ class Player:
         while True:
             try:
                 reaction, reaction_user = await BOT.wait_for("reaction_add", timeout=15.0, check=check)
-                
+
                 if mode == 'sp' and reaction_user != self.member:
                     await ctx.channel.send(f"yar suek {reaction_user.mention}", tts=True, delete_after=5)
                     continue
@@ -91,8 +93,6 @@ class Player:
                 self.choice = Timeout
                 break
         return message
-        
-
 
 
 def getWinner(p1=Player, p2=Player) -> Player:
@@ -171,31 +171,29 @@ class RockPaperScissors:
     async def PlaySP(bot: discord.Client, ctx: discord_slash.SlashContext):
         global BOT
         BOT = bot
-        
+
         player = Player(ctx.author)
         opponent = BotPlayer()
-        
+
         winner = None
         msg_match = await ctx.send(embed=embedMatch(player, opponent))
         while winner is None:
-            
-            choice_msg = await  player.getChoice('sp', ctx)
-            
+
+            choice_msg = await player.getChoice('sp', ctx)
+
             if player.choice == Timeout:
                 winner = opponent
-                await msg_match.edit(embed=embedMatch(player, opponent, winner = winner, timeout = player))
+                await msg_match.edit(embed=embedMatch(player, opponent, winner=winner, timeout=player))
                 await choice_msg.delete()
                 break
-                
+
             opponent.getChoice()
-            
+
             winner = getWinner(player, opponent)
-            
-            await msg_match.edit(embed=embedMatch(player, opponent, winner = winner))
-            
+
+            await msg_match.edit(embed=embedMatch(player, opponent, winner=winner))
+
             await choice_msg.delete()
-        
-        
 
     async def PlayMP(bot: discord.Client, ctx: discord_slash.SlashContext) -> None:
 
@@ -234,7 +232,7 @@ class RockPaperScissors:
                     while winner is None:
 
                         msg_turn = await ctx.channel.send(content=f"It's {p1.member.mention} turn. Check your PM! {p1.nick}")
-                        
+
                         p1_msg = await p1.getChoice()
                         if p1.choice == Timeout:
                             winner = p2
@@ -264,8 +262,6 @@ class RockPaperScissors:
                         if p1.choice == Timeout and p2.choice == Timeout:
                             await msg_turn.delete()
                             break
-
-                    
 
                     if winner is not None:
                         winner.choice = None

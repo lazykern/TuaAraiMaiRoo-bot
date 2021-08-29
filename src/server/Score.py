@@ -23,21 +23,22 @@ dynamodb = session.resource("dynamodb")
 cpe35_server_user = dynamodb.Table("cpe35_server_user")
 cpe35_y1_exam = dynamodb.Table("cpe35_y1_exam")
 
+
 async def ku_score(ctx: discord_slash.SlashContext):
-    
+
     try:
-        member = cpe35_server_user.get_item(Key={'id':ctx.author_id})['Item']
-        member_score = cpe35_y1_exam.get_item(Key = {'id_ku': int(member['id_ku'])})['Item'] 
+        member = cpe35_server_user.get_item(Key={'id': ctx.author_id})['Item']
+        member_score = cpe35_y1_exam.get_item(
+            Key={'id_ku': int(member['id_ku'])})['Item']
     except KeyError:
         await ctx.send('Unable to get score data.', delete_after=10)
         return
-    
-    em = discord.Embed(title = 'Computer Programming Midterm Quiz Score')
-    em.add_field(name = 'Score', value = member_score['s1_q1_score'], inline=False)
-    em.add_field(name = 'Percentage', value = member_score['s1_q1_percentage'], inline=False)
-    em.add_field(name = 'Grade', value = member_score['s1_q1_grade'], inline=False)
-    
-    await ctx.send('Check your PM!', delete_after=10)
-    await ctx.author.send(embed= em)
-    
 
+    em = discord.Embed(title='Computer Programming Midterm Quiz Score')
+    em.add_field(name='Score', value=member_score['s1_q1_score'], inline=False)
+    em.add_field(name='Percentage',
+                 value=member_score['s1_q1_percentage'], inline=False)
+    em.add_field(name='Grade', value=member_score['s1_q1_grade'], inline=False)
+
+    await ctx.send('Check your PM!', delete_after=10)
+    await ctx.author.send(embed=em)

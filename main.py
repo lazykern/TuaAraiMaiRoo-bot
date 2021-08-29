@@ -154,6 +154,7 @@ async def _rockpaperscissors(ctx: discord_slash.SlashContext):
     print(f'{str(ctx.author)} used {ctx.name}')
     await rockpaperscissors.RockPaperScissors.PlaySP(bot, ctx)
 
+
 @slash.subcommand(base='game', subcommand_group='rockpaperscissors', name='multiplayer',
                   description='Play Rock Paper Scissors with friends.', guild_ids=GUILD_IDS)
 async def _rockpaperscissors(ctx: discord_slash.SlashContext):
@@ -234,13 +235,15 @@ async def audio_play(ctx: discord_slash.SlashContext, sound):
     print(f'{str(ctx.author)} used {ctx.name}')
     await play(bot, ctx, sound, political=True)
 
-@slash.slash(name='n', description='Play N Sound for user [Warning! This sound can hurt your ears].',guild_ids=GUILD_IDS , options=[create_option(name='sound',
-                                         description='Select Sound To play',
-                                         option_type=SlashCommandOptionType.STRING, required=True,
-                                         choices=SlashChoice.choiceNVoice)])
-async def audio_play(ctx:discord_slash.SlashContext,sound:str):
+
+@slash.slash(name='n', description='Play N Sound for user [Warning! This sound can hurt your ears].', guild_ids=GUILD_IDS, options=[create_option(name='sound',
+                                                                                                                                                  description='Select Sound To play',
+                                                                                                                                                  option_type=SlashCommandOptionType.STRING, required=True,
+                                                                                                                                                  choices=SlashChoice.choiceNVoice)])
+async def audio_play(ctx: discord_slash.SlashContext, sound: str):
     print(f'{str(ctx.author)} used {ctx.name}')
     await play(bot, ctx, sound)
+
 
 @slash.slash(name="disconnect", description="Disconnect bot from the Voice Channel", guild_ids=GUILD_IDS)
 async def audio_disconnect(ctx: discord_slash.SlashContext):
@@ -319,8 +322,9 @@ async def _info(ctx: discord_slash.SlashContext, user: discord.Member = None):
 async def _math_solve(ctx: discord_slash.SlashContext, equation: str, variable: str = None, color: str = "White"):
     await solve_eq(ctx, equation, variable, color)
 
+
 @slash.subcommand(base='score', subcommand_group='midterm', name='quiz', guild_ids=GUILD_IDS)
 async def _ku_score(ctx: discord_slash.SlashContext):
     await ku_score(ctx)
-    
+
 bot.run(TOKEN)
