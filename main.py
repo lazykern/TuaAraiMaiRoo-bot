@@ -240,6 +240,11 @@ async def audio_play(ctx: discord_slash.SlashContext, sound):
                                          choices=SlashChoice.choiceNVoice)])
 async def audio_play(ctx:discord_slash.SlashContext,sound:str):
     print(f'{str(ctx.author)} used {ctx.name}')
+    if ctx.guild_id in [847172394316464178, 440532168389689345]:
+        if sound == '1':
+            await ctx.send(':NDeep:')
+        else:
+            await ctx.send(':Ndog:')
     await play(bot, ctx, sound)
 
 @slash.slash(name="disconnect", description="Disconnect bot from the Voice Channel", guild_ids=GUILD_IDS)
