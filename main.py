@@ -263,12 +263,6 @@ async def travel_chanel(ctx: discord_slash.SlashContext, user: discord.Member = 
     await random_travel(bot, ctx, user)
 
 
-@slash.slash(name="change", description="Convert the keyboard layout of your last message between en-th.", guild_ids=GUILD_IDS)
-async def change_message(ctx: discord_slash.SlashContext):
-    print(f'{str(ctx.author)} used {ctx.name}')
-    await change_last_message(ctx)
-
-
 @slash.subcommand(base='codechannel', name='add', description='Add auto text formatting to a text channel.', guild_ids=GUILD_IDS,
                   options=[create_option(name='channel', description='The channel you want to add text formatting to.',
                                          option_type=SlashCommandOptionType.CHANNEL, required=True),
@@ -322,9 +316,5 @@ async def _info(ctx: discord_slash.SlashContext, user: discord.Member = None):
 async def _math_solve(ctx: discord_slash.SlashContext, equation: str, variable: str = None, color: str = "White"):
     await solve_eq(ctx, equation, variable, color)
 
-
-@slash.subcommand(base='score', subcommand_group='midterm', name='quiz', guild_ids=GUILD_IDS)
-async def _ku_score(ctx: discord_slash.SlashContext):
-    await ku_score(ctx)
 
 bot.run(TOKEN)
