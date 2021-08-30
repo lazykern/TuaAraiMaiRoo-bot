@@ -3,20 +3,16 @@ from bot import TuanAraiMaiRoo
 import os
 import discord
 from discord import activity
-from discord.utils import get
 import discord_slash
 from discord_slash import SlashCommand
 from discord_slash.model import SlashCommandOptionType
 from discord.ext import commands
-from sympy.polys.polytools import content
 from src.utils.codechannel import *
 from src.utils.kick import random_kick
 from src.utils.travel import random_travel
-from src.utils.change import change_last_message
 from src.utils.config import Prefix
 from src.utils.command import SlashChoice
 from src.server.Server import ku_verify, ku_info
-from src.server.Score import ku_score
 from src.poker.poker import poker_play
 from src.pog.pog import pog_play
 from src.games import rockpaperscissors
@@ -184,12 +180,6 @@ async def travel_chanel(ctx: discord_slash.SlashContext, user: discord.Member = 
     await random_travel(bot, ctx, user)
 
 
-@slash.slash(name="change", description="Convert the keyboard layout of your last message between en-th.", guild_ids=GUILD_IDS)
-async def change_message(ctx: discord_slash.SlashContext):
-    print(f'{str(ctx.author)} used {ctx.name}')
-    await change_last_message(ctx)
-
-
 @slash.subcommand(base='codechannel', name='add', description='Add auto text formatting to a text channel.', guild_ids=GUILD_IDS,
                   options=[create_option(name='channel', description='The channel you want to add text formatting to.',
                                          option_type=SlashCommandOptionType.CHANNEL, required=True),
@@ -243,9 +233,5 @@ async def _info(ctx: discord_slash.SlashContext, user: discord.Member = None):
 async def _math_solve(ctx: discord_slash.SlashContext, equation: str, variable: str = None, color: str = "White"):
     await solve_eq(ctx, equation, variable, color)
 
-
-@slash.subcommand(base='score', subcommand_group='midterm', name='quiz', guild_ids=GUILD_IDS)
-async def _ku_score(ctx: discord_slash.SlashContext):
-    await ku_score(ctx)
 
 bot.run(TOKEN)
