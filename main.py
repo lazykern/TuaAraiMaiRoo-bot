@@ -2,12 +2,10 @@
 import os
 import discord
 from discord import activity
-from discord.utils import get
 import discord_slash
 from discord_slash import SlashCommand
 from discord_slash.model import SlashCommandOptionType
 from discord.ext import commands
-from sympy.polys.polytools import content
 from src.utils.codechannel import *
 from src.utils.kick import random_kick
 from src.utils.travel import random_travel
