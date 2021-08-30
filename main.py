@@ -11,11 +11,9 @@ from sympy.polys.polytools import content
 from src.utils.codechannel import *
 from src.utils.kick import random_kick
 from src.utils.travel import random_travel
-from src.utils.change import change_last_message
 from src.utils.config import Prefix
 from src.utils.command import SlashChoice
 from src.server.Server import ku_verify, ku_info
-from src.server.Score import ku_score
 from src.poker.poker import poker_play
 from src.pog.pog import pog_play
 from src.games import rockpaperscissors
