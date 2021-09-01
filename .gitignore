@@ -1,0 +1,10 @@
+__pycache__/
+src/audio/ffmpeg.exe
+text.mp3
+.env
+*.pem
+*.out
+solve.png
+gcp_client.json
+push*
+*.ipynb
