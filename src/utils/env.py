@@ -8,5 +8,5 @@ class vars:
     AWS_SECRETKEY = os.getenv('AWS_SECRETKEY')
     AWS_REGION = os.getenv('AWS_REGION')
     TOKEN = os.getenv("TOKEN")
-    NISIT_KU_URL = os.getenv("NISIT_KU_URL") 
+    NISIT_KU_URL = os.getenv("NISIT_KU_URL")
     PIRUN_URL = os.getenv("PIRUN_URL")

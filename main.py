@@ -66,7 +66,6 @@ async def on_message(msg: discord.Message):
             print(f'added {msg.guild.id} to guild db')
             from src.utils.guilddata import GuildData, GuildIDs
 
-
         channel = msg.channel
         guilddata = GuildData(msg.guild.id)
 

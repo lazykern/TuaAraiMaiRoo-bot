@@ -1,12 +1,10 @@
 {
   "content": null,
-  "embeds": [
-    {
+  "embeds": [{
       "title": "About ตัวอะไรไม่รู้",
       "description": "ตัวอะไรไม่รู้ is a discord bot that is created by [CPE35 Developer](https://github.com/CPE35-Developer).\nIt is originally created for CPE35 KU81 Discord server.\n\nYou can also [invite ตัวอะไรไม่รู้ to your server](https://tinyurl.com/blackhole112) .\n\nFeel free to checkout [ตัวอะไรไม่รู้'s GitHub repository](https://github.com/CPE35-Developer/discord-bot-aws).",
       "color": 14317128,
-      "fields": [
-        {
+      "fields": [{
           "name": "Dependencies",
           "value": "Python\ndiscord.py\ndiscord-py-slash-command\n[Others](https://github.com/CPE35-Developer/discord-bot-aws/blob/main/requirements.txt)",
           "inline": true
@@ -52,8 +50,7 @@
       "title": "CPE35 KU81 server only",
       "description": "Commands that will only work in KU81 CPE35 Discord Server",
       "color": null,
-      "fields": [
-        {
+      "fields": [{
           "name": "verify",
           "value": "Verifies that you are a true KU student"
         },
@@ -69,8 +66,7 @@
     {
       "title": "All server",
       "color": null,
-      "fields": [
-        {
+      "fields": [{
           "name": "hello",
           "value": "Says Hi :flushed:"
         },
