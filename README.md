@@ -49,12 +49,9 @@ Every command is called by / (slash).
 | game poker             | Play Poker                                                         |
 | game pokdeng           | Play Pok Deng                                                      |
 | game rockpaperscissors | Play Rock Paper Scissors (Singleplayer/Multiplayer)                |
-
-<h3>Buggy</h3>
-
-| Command | Description                                                  |
-| ------- | ------------------------------------------------------------ |
-| change  | Change keyboard layout between TH/EN for the lastest message |
+|slap                    | Slap                                                               |
+|return add              | Add return message|
+|return remove           | Remove return message|
 
 ## License
 
