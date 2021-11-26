@@ -22,7 +22,7 @@ Every command is called by / (slash).
 
 | Command | Description                                                                             |
 | ------- | --------------------------------------------------------------------------------------- |
-| verify  | Verifies that you are a true KU student and gives you a role. (Special for CPE student) |
+| <s>verify</s>  | <s>Verifies that you are a true KU student and gives you a role. (Special for CPE student)</s> |
 | info    | Show KU info of a verified discord user                                                 |
 
 <h3>All server</h3>
