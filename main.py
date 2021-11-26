@@ -278,9 +278,9 @@ async def _returnmsg_add(ctx: discord_slash.SlashContext, message: str):
     await RemoveReturnMsg(ctx, message)
 
 
-# @slash.slash(name='verify', description='Verifies that you are a true KU student', guild_ids=[847172394316464178, 440532168389689345])
-# async def _verify(ctx: discord_slash.SlashContext):
-#     await ku_verify(ctx)
+@slash.slash(name='verify', description='Verifies that you are a true KU student', guild_ids=[847172394316464178, 440532168389689345])
+async def _verify(ctx: discord_slash.SlashContext):
+    await ctx.send(f"Verify is dead. It's Nath Prachayakul's fault")
 
 
 @slash.slash(name='info', description='Shows KU info of a user.', guild_ids=GUILD_IDS)
