@@ -80,41 +80,41 @@ def get_nisit_data(id: str):
     return nisit_data
 
 
-# def is_verified_email(email:str):
-#     return email in ses.list_verified_email_addresses()['VerifiedEmailAddresses']
+def is_verified_email(email:str):
+    return email in ses.list_verified_email_addresses()['VerifiedEmailAddresses']
 
 
-# def while_not_verified(email:str, timeout:int):
-#     timeout = time.time() + timeout
-#     while not is_verified_email(email):
-#         if time.time() > timeout:
-#             return False
-#     return True
+def while_not_verified(email:str, timeout:int):
+    timeout = time.time() + timeout
+    while not is_verified_email(email):
+        if time.time() > timeout:
+            return False
+    return True
 
-# async def verify_ku_email(ctx: SlashContext, email:str):
+async def verify_ku_email(ctx: SlashContext, email:str):
 
-#     if ctx.guild_id not in [847172394316464178, 440532168389689345]:
-#         await ctx.send(f"This server does not support verification command.", delete_after=10)
-#         return
+    if ctx.guild_id not in [847172394316464178, 440532168389689345]:
+        await ctx.send(f"This server does not support verification command.", delete_after=10)
+        return
 
-#     if email == '':
-#         email = get_pirun_data(email.split('@')[0])['google_email']
+    if email == '':
+        email = get_pirun_data(email.split('@')[0])['google_email']
 
-#     if not is_verified_email(email):
+    if not is_verified_email(email):
 
-#         ses.verify_email_identity(EmailAddress = email)
-#         await ctx.author.send("Verification E-mail sent!\nPlease check your KU E-mail")
+        ses.verify_email_identity(EmailAddress = email)
+        await ctx.author.send("Verification E-mail sent!\nPlease check your KU E-mail")
 
-#         if while_not_verified(email, 5*60):
-#             await ctx.author.send("Your E-mail is verified!")
-#             return True
-#         else:
-#             await ctx.author.send("E-mail verification timed out (5 mins)")
-#             return False
+        if while_not_verified(email, 5*60):
+            await ctx.author.send("Your E-mail is verified!")
+            return True
+        else:
+            await ctx.author.send("E-mail verification timed out (5 mins)")
+            return False
 
-#     else:
-#         await ctx.author.send("Your E-mail is verified!")
-#         return True
+    else:
+        await ctx.author.send("Your E-mail is verified!")
+        return True
 
 def verify_embed(ctx: SlashContext, color=0xfffff, email_emb: str = '-', id_emb: str = '-', nam_emb: str = '-', sur_emb: str = '-', role_emb: str = None):
     embed = discord.Embed(
@@ -125,8 +125,7 @@ def verify_embed(ctx: SlashContext, color=0xfffff, email_emb: str = '-', id_emb:
     embed.add_field(name="Name", value=nam_emb, inline=True)
     embed.add_field(name="Surname", value=sur_emb, inline=True)
 
-    if role_emb is not None:
-        embed.add_field(name="Role", value=role_emb)
+    if role_emb is not None: embed.add_field(name="Role", value=role_emb)
     return embed
 
 
