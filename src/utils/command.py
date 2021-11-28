@@ -27,7 +27,8 @@ class SlashChoice:
         {"value": "intro",  "name": "Intro"},
         {"value": "blessing", "name": "Blessing"},
         {"value": "letitbe",    "name": "Let it be"},
-        {"value": "slap",    "name": "Slap"}
+        {"value": "slap",    "name": "Slap"},
+        {"value": "vineboom",   "name": "Vine Boom"},
     ]
 
     choicePuiVoice = [
