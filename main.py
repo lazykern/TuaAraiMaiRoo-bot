@@ -10,7 +10,7 @@ from src.utils.kick import random_kick
 from src.utils.travel import random_travel
 from src.utils.command import SlashChoice
 from src.format.code import send_fmc
-from src.server.Server import ku_verify, ku_info
+# from src.server.Server import ku_verify, ku_info
 from src.poker.poker import poker_play
 from src.pog.pog import pog_play
 from src.games import rockpaperscissors
